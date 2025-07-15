@@ -2,11 +2,13 @@ package com.test.exception;
 
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
 
-public class GlobalExceptionHandler implements ExceptionMapper<Throwable> {
+@Provider
+public class GlobalExceptionHandler implements ExceptionMapper<Exception> {
 
     @Override
-    public Response toResponse(Throwable exception) {
+    public Response toResponse(Exception exception) {
         if (exception instanceof NotFoundException) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(new ErrorResponse("Not found", exception.getMessage()))
