@@ -33,15 +33,16 @@
    Headers:
      Content-Type: application/json
    Body:
-     {
-       "items": [
+
+      {
+  "items": [
    
-         {
-            "productId": 8,
-            "quantity": 1
-         }
-       ]
-     }
+    {
+      "productId": 8,
+      "quantity": 1
+    }
+  ]
+}
    
 4. Получить заказ по id - GET http://localhost:8081/orders/ваш_id
 5. Удалить заказ - DELETE http://localhost:8081/orders/ваш_id
