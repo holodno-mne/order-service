@@ -24,7 +24,7 @@ public class OrderService {
 
     @Inject
     @RestClient
-    ProductClient  productClient;
+    ProductClient productClient;
 
     @Inject
     OrderMapper orderMapper;
@@ -32,7 +32,7 @@ public class OrderService {
     @Transactional
     public OrderDTO createOrder(OrderDTO orderDTO) {
         Order order = orderMapper.toEntity(orderDTO);
-        order.setCreatedAt(orderDTO.createdAt != null ? orderDTO.createdAt : java.time.LocalDateTime.now());
+        order.setCreatedAt(orderDTO.getCreatedAt() != null ? orderDTO.getCreatedAt() : java.time.LocalDateTime.now());
 
         for (OrderItem item : order.getItems()) {
 
@@ -40,10 +40,10 @@ public class OrderService {
             if (product == null) {
                 throw new BadRequestException("Product not found");
             }
-            if (item.getQuantity() > product.quantity) {
+            if (item.getQuantity() > product.getQuantity()) {
                 throw new BadRequestException("Not enough stock");
             }
-            item.setPriceAtPurchase(product.price);
+            item.setPriceAtPurchase(product.getPrice());
             item.setOrder(order);
         }
 

@@ -10,10 +10,10 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "jakarta")
 public interface OrderMapper {
 
-
-
     OrderDTO toDto(Order order);
+
     OrderItemDTO toDto(OrderItem orderItem);
+
     Order toEntity(OrderDTO orderDTO);
 
     @Mapping(target = "priceAtPurchase", ignore = true)

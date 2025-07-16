@@ -41,8 +41,10 @@ public class OrderResource {
     @GET
     @Path("/{id}")
     public Response getOrderById(@PathParam("id") Long id) {
+        log.info("Get order by id: {}", id);
         OrderDTO order = orderService.getOrderById(id);
         if (order == null) {
+            log.warn("No order found with id: {}", id);
             return Response.status(Response.Status.NOT_FOUND)
                     .entity("Order not found")
                     .build();
@@ -54,12 +56,15 @@ public class OrderResource {
     @Path("/{id}")
     @Transactional
     public Response deleteOrderById(@PathParam("id") Long id) {
+        log.info("Delete order by id: {}", id);
         boolean deleted = orderService.deleteOrderById(id);
         if (!deleted) {
+            log.warn("No order found to be deleted with id: {}", id);
             return Response.status(Response.Status.NOT_FOUND)
                     .entity("Order not found")
                     .build();
         }
+        log.info("Successfully deleted order by id: {}", id);
         return Response.noContent().build();
     }
 }
